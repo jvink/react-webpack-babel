@@ -1,8 +1,12 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const path = require('path');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    index: './src/index.js',
+    sw: './src/sw.js',
+  },
   module: {
     rules: [
       {
@@ -24,10 +28,11 @@ module.exports = {
     ],
   },
   output: {
-    filename: 'index_bundle.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src', 'index.html'),
     }),
